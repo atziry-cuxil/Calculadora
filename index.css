@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-
 }
 body {
     display: flex;
@@ -30,7 +29,6 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     padding: 1rem;
-
 }
 .grid button{
     background-color: antiquewhite;
