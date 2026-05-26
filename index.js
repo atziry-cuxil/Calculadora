@@ -18,7 +18,7 @@ const buscarMultiplicacion = (datos) => {
                 arreglo[1] = datos[i]
                 arreglo[2] = datos[i + 1]
                 let decimales = controlDecimales(arreglo)
-                if(decimales){
+                if (decimales) {
                     input.value = 'Doble Punto'
                     return;
                 }
@@ -32,7 +32,7 @@ const buscarMultiplicacion = (datos) => {
 }
 
 const operacion = () => {
-    let resultado  = 0
+    let resultado = 0
     let operacionLarga = input.value
     let operadoresTamanio = 0
     let operadores = '+-/*'
@@ -40,52 +40,59 @@ const operacion = () => {
 
     datos = operacionLarga.trim().split(' ')
 
-    for(let b =0; b < datos.length; b++)
-    {
-        if(datos[b] == ""){
-            let signos = datos[b-1] + datos[b+1]
-            switch(signos){
+    for (let b = 0; b < datos.length; b++) {
+        if (datos[b] == "") {
+            let signos = datos[b - 1] + datos[b + 1]
+            switch (signos) {
                 case '+-':
-                    datos.splice(b-1, 3, '-')
+                    datos.splice(b - 1, 3, '-')
                     break;
                 case '++':
-                    datos.splice(b-1, 3, '+')
+                    datos.splice(b - 1, 3, '+')
                     break;
                 case '--':
-                    datos.splice(b-1, 3, '+')
+                    datos.splice(b - 1, 3, '+')
                     break;
                 case '-+':
-                    datos.splice(b-1, 3, '-')
+                    datos.splice(b - 1, 3, '-')
                     break;
                 case '*-':
-                    datos.splice(b, 3, parseFloat(datos[b+2])*-1)
+                    datos.splice(b, 3, parseFloat(datos[b + 2]) * -1)
 
                     break;
                 case '*+':
-                    datos.splice(b-1, 3, '*')
+                    datos.splice(b - 1, 3, '*')
                     break;
                 case '/+':
-                    datos.splice(b-1, 3, '/')
+                    datos.splice(b - 1, 3, '/')
                     break;
                 case '/-':
-                    datos.splice(b, 3, parseFloat(datos[b+2]) * -1)
+                    datos.splice(b, 3, parseFloat(datos[b + 2]) * -1)
+                    break;
+                case '+/': 
+                    datos.splice(b - 1, 3 , '/')
+                    break;
+                case '-*':
+                    datos.splice(b - 1, 3 , '*')
+                    break;
+                case '-/':
+                    datos.splice(b - 1, 3 , '/')
                     break;
                 default:
                     return 'Math Error'
             }
 
-        }else if(operadores.includes(datos[b])  && b == 0){
-            if(datos[b] == '-'){
-                datos[b+1] = parseFloat(datos[b+1]) * -1
-            }else{
-                datos[b+1] = parseFloat(datos[b+1]) * 1
+        } else if (operadores.includes(datos[b]) && b == 0) {
+            if (datos[b] == '-') {
+                datos[b + 1] = parseFloat(datos[b + 1]) * -1
+            } else {
+                datos[b + 1] = parseFloat(datos[b + 1]) * 1
             }
             datos.shift()
         }
     }
 
-
-   for (let i = 0; i <= datos.length; i++) {
+    for (let i = 0; i <= datos.length; i++) {
         if (operadores.includes(datos[i])) {
             console.log(datos[i])
             operadoresTamanio++
@@ -96,16 +103,16 @@ const operacion = () => {
 
 
     for (let j = 0; j < operadoresTamanio; j++) {
-       if(datos.length >= 3){
+        if (datos.length >= 3) {
             let decimales = controlDecimales(datos)
-            if(decimales){
+            if (decimales) {
                 input.value = 'Doble punto'
                 return;
             }
             resultado = calcular(datos)
-       }else{
+        } else {
             resultado = datos[0]
-       }
+        }
     }
 
     input.value = resultado
@@ -171,16 +178,17 @@ borrar.addEventListener('click', (event) => {
 
 const controlDecimales = (arreglo) => {
     let count = 0
-    for(let i = 0; i < arreglo.length ; i++){
+    for (let i = 0; i < arreglo.length; i++) {
         for (let j = 0; j < arreglo[i].length; j++) {
             if (arreglo[i][j] == '.') {
                 count++
+                if (count > 1) {
+                    return true;
+                }
+                count = 0;
             }
         }
 
-        if (count > 1) {
-            return true;
-        }
     }
 
 }
