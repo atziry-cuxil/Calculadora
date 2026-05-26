@@ -69,14 +69,14 @@ const operacion = () => {
                 case '/-':
                     datos.splice(b, 3, parseFloat(datos[b + 2]) * -1)
                     break;
-                case '+/': 
-                    datos.splice(b - 1, 3 , '/')
+                case '+/':
+                    datos.splice(b - 1, 3, '/')
                     break;
                 case '-*':
-                    datos.splice(b - 1, 3 , '*')
+                    datos.splice(b - 1, 3, '*')
                     break;
                 case '-/':
-                    datos.splice(b - 1, 3 , '/')
+                    datos.splice(b - 1, 3, '/')
                     break;
                 default:
                     return 'Math Error'
@@ -101,7 +101,6 @@ const operacion = () => {
 
     datos = buscarMultiplicacion(datos)
 
-
     for (let j = 0; j < operadoresTamanio; j++) {
         if (datos.length >= 3) {
             let decimales = controlDecimales(datos)
@@ -115,7 +114,12 @@ const operacion = () => {
         }
     }
 
-    input.value = resultado
+    if (!resultado == 0) {
+        input.value = resultado
+    } else {
+        input.value
+    }
+
 }
 
 const calcular = (datos) => {
@@ -182,13 +186,12 @@ const controlDecimales = (arreglo) => {
         for (let j = 0; j < arreglo[i].length; j++) {
             if (arreglo[i][j] == '.') {
                 count++
-                if (count > 1) {
-                    return true;
-                }
-                count = 0;
             }
         }
-
+        if (count > 1) {
+            return true;
+        }
+        count = 0;
     }
 
 }
