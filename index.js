@@ -84,7 +84,6 @@ const operacion = () => {
         }
     }
 
-    console.log(datos)
 
    for (let i = 0; i <= datos.length; i++) {
         if (operadores.includes(datos[i])) {
@@ -113,6 +112,7 @@ const operacion = () => {
 }
 
 const calcular = (datos) => {
+
     let calculo;
 
     switch (datos[1]) {
